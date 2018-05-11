@@ -8,9 +8,62 @@ import { testBenches, newBench } from "../../testUtil/bench_helper";
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
-describe("simple action creators", () => {});
+describe("simple action creators", () => {
+  test("receiveBenches should create an action to receive benches", () => {
+    const expectedAction = {
+      type: actions.RECEIVE_BENCHES,
+      benches: testBenches
+    };
+    expect(actions.receiveBenches(testBenches)).toEqual(expectedAction);
+  });
 
-describe("async action creators", () => {});
+  test("receiveBench should create an action to receive one bench", () => {
+    const expectedAction = {
+      type: actions.RECEIVE_BENCH,
+      bench: newBench
+    };
+
+    expect(actions.receiveBench(newBench)).toEqual(expectedAction);
+  });
+});
+
+describe("async action creators", () => {
+  test("fetchBenches creates RECEIVE_BENCHES after fetching benches", () => {
+    //Refer to Redux test docs
+    //Set up expectedActions
+
+    const expectedActions = [
+      {
+        type: actions.RECEIVE_BENCHES,
+        benches: testBenches
+      }
+    ];
+
+
+    ApiUtil.fetchBenches = jest.fn(() => {
+      return Promise.resolve(testBenches);
+    });
+
+    const store = mockStore({ benches: {} });
+    
+    return store.dispatch(actions.fetchBenches()).then(() => {
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+  });
+
+  test("fetchBench creates RECEIVE_BENCH after fetching new bench", () => {
+    const store = mockStore({ benches: {} });
+    const expectedActions = [{ type: actions.RECEIVE_BENCH, bench: newBench }];
+
+    ApiUtil.fetchBench = jest.fn(() => {
+      return Promise.resolve(newBench);
+    });
+
+    return store.dispatch(actions.fetchBench()).then(() => {
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+  });
+});
 
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/resolve
 // Explanation of what Promise.resolve does:

@@ -34,7 +34,6 @@ describe("BenchesReducer", () => {
 
     beforeEach(() => {
       // Set up the action that will be passed into the reducer:
-      // Your code here
       action = {
         type: BenchActions.RECEIVE_BENCHES,
         benches: testBenches
