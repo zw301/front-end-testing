@@ -1,6 +1,6 @@
 # Front-End Testing
 
-refer to https://redux.js.org/docs/recipes/WritingTests.html
+Refer to https://redux.js.org/docs/recipes/WritingTests.html
 
 ## Why Test?
 
@@ -54,3 +54,11 @@ describe('<MyComponent />', () => {
 * Add tests to JS project
 * Add Jest to your resume
 * Add tests whenever possible on coding challenges!
+
+
+
+# Useful Docs:
+* https://facebook.github.io/jest/docs/en/expect.html
+* http://airbnb.io/enzyme/docs/api/
+* https://facebook.github.io/jest/docs/en/mock-functions.html
+* https://www.npmjs.com/package/react-mock-router
